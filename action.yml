@@ -1,0 +1,28 @@
+name: "cypress-check"
+description: "Adds output from Cypress tests to the details of a check run"
+author: "soomo"
+branding:
+  icon: "check-circle"
+  color: "green"
+runs:
+  using: "node12"
+  main: "dist/index.js"
+inputs:
+  GITHUB_TOKEN:
+    description: "Github access token, usually in the repos secrets"
+    required: true
+  CYPRESS_FOLDER:
+    description: "Cypress folder path, contains tests, reports and outputs"
+    required: true
+  PROJECT_NAME:
+    description: "Github Project Name"
+    required: true
+  BUCKET_NAME:
+    description: "S3 Bucket Name"
+    required: true
+  AWS_ACCESS_ID:
+    description: "AWS Access ID"
+    required: true
+  AWS_SECRET_KEY:
+    description: "AWS Secret Key"
+    required: true
