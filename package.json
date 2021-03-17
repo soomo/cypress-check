@@ -1,24 +1,22 @@
 {
   "name": "cypress-checks",
   "version": "1.0.0",
-  "description": "",
-  "main": "lib/index.js",
+  "description": "Generate nice markdown results from cypress + mochawesome + cucumber output",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && ncc build",
-    "compile": "tsc",
-    "start": "tsc && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "ncc build -m -s",
+    "start": "ncc build -m -s && node dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bkwhite/cypress-checks.git"
+    "url": "git+https://github.com/soomo/cypress-check.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bkwhite/cypress-checks/issues"
+    "url": "https://github.com/soomo/cypress-check/issues"
   },
-  "homepage": "https://github.com/bkwhite/cypress-checks#readme",
+  "homepage": "https://github.com/soomo/cypress-check#readme",
   "devDependencies": {
     "@types/node": "^14.14.31",
     "@vercel/ncc": "^0.27.0",
