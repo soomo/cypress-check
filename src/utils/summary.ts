@@ -1,5 +1,12 @@
-import { MochawesomeOutput, TestSummary } from './types'
+import { MochawesomeOutput, TestSummary } from '../types/mochawesome.types'
 
+/**
+ * Transform mochawesome output into a TestSummary array
+ * @param cypressOutput output.json
+ * @param videoUrls remote locations of the screen recordings
+ * @param screenshotUrls remote locations of the screenshots
+ * @returns TestSummary[]
+ */
 export function buildSummaryData(
     cypressOutput: MochawesomeOutput,
     videoUrls: string[],
@@ -37,6 +44,11 @@ export function buildSummaryData(
     }, [])
 }
 
+/**
+ * Format TestSummary[] into Markdown
+ * @param summaryData results from buildSummaryData
+ * @returns Markdown string
+ */
 export function formatSummaryData(summaryData: TestSummary[]) {
     let document = '## Test Results\n'
 

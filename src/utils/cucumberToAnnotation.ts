@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { Cucumber, StepsEntity } from '../cucumber.types'
+
+import { Cucumber, StepsEntity } from '../types/cucumber.types'
 import { getFiles } from './uploadToS3'
 
 interface GithubAnnotation {
@@ -12,8 +13,13 @@ interface GithubAnnotation {
     title?: string
 }
 
-export function cucumberToAnnotations(cucumberFolder: string) {
-    return getFiles(cucumberFolder).reduce<GithubAnnotation[]>(
+/**
+ * Parse folder cucumber output files
+ * @param cucumberDir location with cucumber.json results
+ * @returns GithubAnnotation[]
+ */
+export function cucumberToAnnotations(cucumberDir: string) {
+    return getFiles(cucumberDir).reduce<GithubAnnotation[]>(
         (annotations, currentFilePath) => [
             ...annotations,
             ...cucumberToAnnotation(currentFilePath.path),
@@ -22,10 +28,19 @@ export function cucumberToAnnotations(cucumberFolder: string) {
     )
 }
 
+/**
+ * Build an array of Github annotations out of a cucumber.json file
+ * @param cucumberJsonFilePath 
+ * @returns 
+ */
 function cucumberToAnnotation(cucumberJsonFilePath: string) {
     const cucumberJson = JSON.parse(
         fs.readFileSync(path.join(cucumberJsonFilePath), 'utf-8')
     ) as Cucumber[]
+
+    if (!cucumberJson[0]) {
+        return []
+    }
 
     const featureFile = cucumberJson[0].uri
 

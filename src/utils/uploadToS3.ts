@@ -7,6 +7,11 @@ interface FileObject {
     type: string
 }
 
+/**
+ * Build an array of FileObjects from provided directory
+ * @param dir 
+ * @param fileList 
+ */
 export function getFiles(dir: string, fileList: FileObject[] = []) {
     if (!fs.existsSync(dir)) {
         return []
@@ -28,16 +33,23 @@ export function getFiles(dir: string, fileList: FileObject[] = []) {
             }
         }
     })
+
     return fileList
 }
 
-export async function uploadFolder(config: {
+interface UploadFolderConfig {
     LOCAL_FOLDER: string
     FOLDER_IN_BUCKET: string
     BUCKET_NAME: string
     AWS_ACCESS_ID: string
     AWS_SECRET_KEY: string
-}) {
+};
+
+/**
+ * Upload all the files in a folder to an S3 bucket
+ * @param config 
+ */
+export async function uploadFolder(config: UploadFolderConfig) {
     const localDir = config.LOCAL_FOLDER
     const files = getFiles(localDir, [])
 
