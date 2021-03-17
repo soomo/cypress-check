@@ -1,4 +1,4 @@
-# cypress-check
+# cypress-check-run
 
 A Github action written in JavaScript that creates a check run with formatted details following a cypress testing suite. 
 
@@ -15,8 +15,8 @@ Add the following to your Github action workflow file
 - name: Merge cypress output
   run: |
     npm run cypress:merge
-- name: cypress-check
-  uses: soomo/cypress-check@1
+- name: cypress-check-run
+  uses: soomo/cypress-check-run@1
   with:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     CYPRESS_FOLDER: ${{ github.workspace }}/cypress

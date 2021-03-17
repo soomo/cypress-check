@@ -1,4 +1,4 @@
-name: "cypress-check"
+name: "cypress-check-run"
 description: "Adds output from Cypress tests to the details of a check run"
 author: "soomo"
 branding:

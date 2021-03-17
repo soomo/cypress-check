@@ -1,5 +1,5 @@
 {
-  "name": "cypress-checks",
+  "name": "cypress-check-run",
   "version": "1.0.0",
   "description": "Generate nice markdown results from cypress + mochawesome + cucumber output",
   "main": "dist/index.js",

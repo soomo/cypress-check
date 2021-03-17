@@ -8,7 +8,7 @@ import { MochawesomeOutput } from './types/mochawesome.types'
 import { uploadFolder } from './utils/uploadToS3'
 import { cucumberToAnnotations } from './utils/cucumberToAnnotation'
 
-const ACTION_NAME = 'cypress-check'
+const ACTION_NAME = 'cypress-check-run'
 
 async function run() {
     const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN', { required: true })
