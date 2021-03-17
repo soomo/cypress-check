@@ -2,9 +2,9 @@
   "name": "cypress-check-run",
   "version": "1.0.0",
   "description": "Generate nice markdown results from cypress + mochawesome + cucumber output",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "ncc build -m -s",
+    "build": "ncc build",
     "start": "ncc build -m -s && node dist/index.js"
   },
   "repository": {
