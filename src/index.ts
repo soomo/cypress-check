@@ -7,6 +7,7 @@ import { formatSummaryData, buildSummaryData } from './utils/summary'
 import { MochawesomeOutput } from './types/mochawesome.types'
 import { uploadFolder } from './utils/uploadToS3'
 import { cucumberToAnnotations } from './utils/cucumberToAnnotation'
+import { parseCoverageData } from './utils/coverage'
 
 const ACTION_NAME = 'cypress-check-run'
 
@@ -15,7 +16,7 @@ async function run() {
     const CYPRESS_FOLDER = core.getInput('CYPRESS_FOLDER', { required: true })
     const PROJECT_NAME = core.getInput('PROJECT_NAME', { required: true })
     const BUCKET_NAME = core.getInput('BUCKET_NAME', { required: true })
-    const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID', {required: true })
+    const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID', { required: true })
     const AWS_SECRET_KEY = core.getInput('AWS_SECRET_KEY', { required: true })
 
     const octokit = github.getOctokit(GITHUB_TOKEN)
@@ -43,12 +44,19 @@ async function run() {
         AWS_SECRET_KEY,
     })
 
-    const outputJson = fs.readFileSync(path.join(`${CYPRESS_FOLDER}/reports/output.json`), 'utf-8')
-    
+    const outputJson = fs.readFileSync(
+        path.join(`${CYPRESS_FOLDER}/reports/output.json`),
+        'utf-8'
+    )
+
     const summary = buildSummaryData(
         JSON.parse(outputJson) as MochawesomeOutput,
         videoUrls,
         screenshotUrls
+    )
+
+    const coverage = parseCoverageData(
+        path.join(`${CYPRESS_FOLDER}/coverage/coverage-summary.json`)
     )
 
     await octokit.checks.create({
@@ -63,7 +71,7 @@ async function run() {
             : 'failure',
         output: {
             title: 'Check Output',
-            summary: formatSummaryData(summary),
+            summary: formatSummaryData(summary, coverage),
             annotations: cucumberToAnnotations(
                 `${CYPRESS_FOLDER}/cucumber-json`
             ),

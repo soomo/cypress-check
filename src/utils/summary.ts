@@ -1,3 +1,4 @@
+import { CoverageResultGroup } from '../types/coverage.types'
 import { MochawesomeOutput, TestSummary } from '../types/mochawesome.types'
 
 /**
@@ -49,8 +50,10 @@ export function buildSummaryData(
  * @param summaryData results from buildSummaryData
  * @returns Markdown string
  */
-export function formatSummaryData(summaryData: TestSummary[]) {
+export function formatSummaryData(summaryData: TestSummary[], coverageData: CoverageResultGroup) {
     let document = '## Test Results\n'
+
+    document += `### Coverage: ${coverageData.lines.pct}%`
 
     summaryData.forEach((d) => {
         document += `### 📃 ${d.featureFile} ${
