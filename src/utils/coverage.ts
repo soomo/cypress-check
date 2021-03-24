@@ -1,5 +1,4 @@
 import fs from 'fs'
-import path from 'path'
 
 import { Coverage } from '../types/coverage.types'
 

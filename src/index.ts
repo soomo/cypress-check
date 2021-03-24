@@ -58,6 +58,9 @@ async function run() {
     const coverage = parseCoverageData(
         path.join(`${CYPRESS_FOLDER}/coverage/coverage-summary.json`)
     )
+    
+    core.info("Coverage data: ")
+    core.info(JSON.stringify(coverage, null, 2))
 
     await octokit.checks.create({
         ...ownership,

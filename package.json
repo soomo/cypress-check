@@ -4,7 +4,7 @@
   "description": "Generate nice markdown results from cypress + mochawesome + cucumber output",
   "main": "lib/index.js",
   "scripts": {
-    "build": "ncc build",
+    "build": "tsc && ncc build -C",
     "start": "ncc build -m -s && node dist/index.js"
   },
   "repository": {
