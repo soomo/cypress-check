@@ -17,9 +17,8 @@ export function buildSummaryData(
         return [
             ...accum,
             ...r.suites.map<TestSummary>((s) => {
-                const featureFileMatch = r.fullFile.match(
-                    /([\w+\.*]+)\.feature/
-                )
+                const featureFileMatch =
+                    r.fullFile.match(/([\w+\.*]+)\.feature/)
                 const featureFile = featureFileMatch ? featureFileMatch[0] : ''
                 return {
                     featureFile: featureFile,
@@ -50,10 +49,15 @@ export function buildSummaryData(
  * @param summaryData results from buildSummaryData
  * @returns Markdown string
  */
-export function formatSummaryData(summaryData: TestSummary[], coverageData: CoverageResultGroup) {
+export function formatSummaryData(
+    summaryData: TestSummary[],
+    coverageData: CoverageResultGroup | null | undefined
+) {
     let document = '## Test Results\n'
 
-    document += `### Coverage: ${coverageData.lines.pct}%`
+    if (coverageData) {
+        document += `### Coverage: ${coverageData.lines.pct}%\n`
+    }
 
     summaryData.forEach((d) => {
         document += `### 📃 ${d.featureFile} ${
@@ -66,7 +70,9 @@ export function formatSummaryData(summaryData: TestSummary[], coverageData: Cove
             document += `- ${s.pass ? `✅` : `❌`} ${s.title} ${
                 !s.pass ? `[(screenshot)](${s.screenshotUrl})` : ''
             }\n`
-            document += !s.pass ? `![enter image description here](${s.screenshotUrl})\n` : ''
+            document += !s.pass
+                ? `![enter image description here](${s.screenshotUrl})\n`
+                : ''
         })
     })
 
